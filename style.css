@@ -5,10 +5,18 @@
   padding: 0;
 }
 
+/* —— color palette —— */
+:root {
+  --black: #231f20;
+  --gold: #c7a662;
+  --white: #fff;
+}
+
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  font-family: "Helvetica Now Display", "Helvetica Neue", Arial, sans-serif;
+  color: var(--black);
+  background: var(--white);
   display: flex;
   justify-content: center;
 }
@@ -22,12 +30,22 @@ body {
 .site-header {
   text-align: center;
   padding-top: 50px;
+  background: var(--black);
+  color: var(--gold);
 }
 
 .site-title {
+  font-family: "Bauer Bodoni", "Times New Roman", serif;
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 10px;
+  color: var(--gold);
+}
+
+.loreal-logo {
+  max-width: 120px;
+  margin-bottom: 10px;
+  filter: brightness(0) invert(1);
 }
 
 /* chat window */
@@ -37,12 +55,12 @@ body {
 
 .chat-window {
   height: 360px;
-  border: 1px solid #000;
+  border: 1px solid var(--black);
   padding: 20px;
   font-size: 18px;
   line-height: 1.5;
   overflow-y: auto;
-  background: #fafafa;
+  background: var(--white);
   white-space: pre-line;
 }
 
@@ -53,11 +71,23 @@ body {
 }
 
 .msg.user {
-  color: #000;
+  color: var(--black);
+  background: var(--white);
+  border-radius: 12px 12px 0 12px;
+  padding: 8px 14px;
+  display: inline-block;
+  margin-bottom: 8px;
+  border: 1px solid var(--gold);
 }
 
 .msg.ai {
-  color: #666666;
+  color: var(--black);
+  background: var(--white);
+  border-radius: 12px 12px 12px 0;
+  padding: 8px 14px;
+  display: inline-block;
+  margin-bottom: 8px;
+  border: 1px solid var(--black);
 }
 
 /* input row */
@@ -81,8 +111,8 @@ body {
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
-  color: #fff;
+  background: var(--gold);
+  color: var(--black);
   border: none;
   padding: 12px;
   width: 48px;
@@ -99,11 +129,12 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: var(--black);
+  color: var(--gold);
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
@@ -125,7 +156,9 @@ body {
   margin: 60px 0 40px;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--gold);
+  background: var(--black);
+  padding: 24px 0 16px 0;
 }
 
 .site-footer nav {
@@ -134,10 +167,10 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--gold);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: var(--white);
 }
