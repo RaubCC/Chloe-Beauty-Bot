@@ -43,9 +43,10 @@ body {
 }
 
 .loreal-logo {
-  max-width: 120px;
-  margin-bottom: 10px;
-  filter: brightness(0) invert(1);
+  max-width: 110px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
 }
 
 /* chat window */
