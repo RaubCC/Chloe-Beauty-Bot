@@ -3,23 +3,28 @@ const chatForm = document.getElementById("chatForm");
 const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 
-// Conversation history (LevelUp feature)
+// Conversation history
 let conversation = [];
 
-// Initial Ash greeting
+// Initial Chloé greeting
 addMessage(
   "ai",
-  "🦉 Bonjour, beauty! I'm Ash, your L’Oréal Product Advisor. Ask me anything about skincare, makeup, haircare, or fragrance!"
+  `**Looking for a glowing skincare routine?** ✨\n\nHere's a simple three-step regimen using some of my L’Oréal favorites:\n\n1. **Cleanse** with _L’Oréal Paris Revitalift Cleanser_ to gently remove impurities.\n2. **Treat** with **Revitalift 1.5% Hyaluronic Acid Serum** for deep hydration.\n3. **Moisturize** using **Revitalift Triple Power Anti-Aging Moisturizer** for a smooth, radiant finish.\n\nNeed tips for your specific skin type? Let me know! 🌸\n\n_Belle journée à vous. Parce que vous le valez bien. 💄_`
 );
 
-// Utility to add a message
+// Utility to add a message (with Markdown for AI, plain for user)
 function addMessage(sender, text) {
   const msgDiv = document.createElement("div");
   msgDiv.classList.add("msg", sender);
-  msgDiv.textContent = text;
-  chatWindow.appendChild(msgDiv);
 
-  // Scroll to bottom for new message
+  // If it's the AI (Chloé), add the lipstick emoji and render Markdown
+  if (sender === "ai") {
+    msgDiv.innerHTML = `<span class="avatar">💄</span> ${marked.parse(text)}`;
+  } else {
+    msgDiv.textContent = text;
+  }
+
+  chatWindow.appendChild(msgDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
@@ -33,25 +38,24 @@ chatForm.addEventListener("submit", async (e) => {
   addMessage("user", question);
   conversation.push({ role: "user", content: question });
 
-  // Optionally, show a loading animation/message
-  addMessage("ai", "Ash is thinking...💭");
+  // Show loading animation/message
+  addMessage("ai", "Chloé is thinking...💭");
 
   // Replace this with your actual API call later
   setTimeout(() => {
-    // Remove the "Ash is thinking..." message
+    // Remove the "Chloé is thinking..." message
     const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
-    if (lastMsg && lastMsg.textContent === "Ash is thinking...💭") {
+    if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
       chatWindow.removeChild(lastMsg);
     }
     // Add a placeholder response
     addMessage(
       "ai",
-      "Here’s a L’Oréal beauty tip! (This is a placeholder. Connect to the API for real advice.)"
+      `**Looking for a glowing skincare routine?** ✨\n\nHere's a simple three-step regimen using some of my L’Oréal favorites:\n\n1. **Cleanse** with _L’Oréal Paris Revitalift Cleanser_ to gently remove impurities.\n2. **Treat** with **Revitalift 1.5% Hyaluronic Acid Serum** for deep hydration.\n3. **Moisturize** using **Revitalift Triple Power Anti-Aging Moisturizer** for a smooth, radiant finish.\n\nNeed tips for your specific skin type? Let me know! 🌸\n\n_Belle journée à vous. Parce que vous le valez bien. 💄_`
     );
     conversation.push({
       role: "assistant",
-      content:
-        "Here’s a L’Oréal beauty tip! (This is a placeholder. Connect to the API for real advice.)",
+      content: `**Looking for a glowing skincare routine?** ✨\n\nHere's a simple three-step regimen using some of my L’Oréal favorites:\n\n1. **Cleanse** with _L’Oréal Paris Revitalift Cleanser_ to gently remove impurities.\n2. **Treat** with **Revitalift 1.5% Hyaluronic Acid Serum** for deep hydration.\n3. **Moisturize** using **Revitalift Triple Power Anti-Aging Moisturizer** for a smooth, radiant finish.\n\nNeed tips for your specific skin type? Let me know! 🌸\n\n_Belle journée à vous. Parce que vous le valez bien. 💄_`,
     });
   }, 1000);
 

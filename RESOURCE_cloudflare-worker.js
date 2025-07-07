@@ -3,7 +3,7 @@
 export default {
   async fetch(request, env) {
     const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*', // Change to your domain in production!
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export default {
     const requestBody = {
       model: 'gpt-4o',
       messages: userInput.messages,
-      max_completion_tokens: 300,
+      max_tokens: 300,
     };
 
     const response = await fetch(apiUrl, {
@@ -33,8 +33,10 @@ export default {
       body: JSON.stringify(requestBody)
     });
 
-    const data = await response.json();
-
-    return new Response(JSON.stringify(data), { headers: corsHeaders });
+    // Forward status code & body
+    return new Response(await response.text(), {
+      status: response.status,
+      headers: corsHeaders
+    });
   }
 };

@@ -91,6 +91,13 @@ body {
   border: 1px solid var(--black);
 }
 
+/* avatar */
+.avatar {
+  font-size: 1.4em;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
 /* input row */
 .chat-form {
   display: flex;
