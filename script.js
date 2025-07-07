@@ -52,23 +52,41 @@ chatForm.addEventListener("submit", async (e) => {
   // Show loading animation/message
   addMessage("ai", "Chloé is thinking...💭");
 
-  // Replace this with your actual API call later
-  setTimeout(() => {
-    // Remove the "Chloé is thinking..." message
-    const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
-    if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
-      chatWindow.removeChild(lastMsg);
-    }
-    // Add a placeholder response
-    addMessage(
-      "ai",
-      `**Looking for a glowing skincare routine?** ✨\n\nHere's a simple three-step regimen using some of my L’Oréal favorites:\n\n1. **Cleanse** with _L’Oréal Paris Revitalift Cleanser_ to gently remove impurities.\n2. **Treat** with **Revitalift 1.5% Hyaluronic Acid Serum** for deep hydration.\n3. **Moisturize** using **Revitalift Triple Power Anti-Aging Moisturizer** for a smooth, radiant finish.\n\nNeed tips for your specific skin type? Let me know! 🌸\n\n_Belle journée à vous. Parce que vous le valez bien. 💄_`
-    );
-    conversation.push({
-      role: "assistant",
-      content: `**Looking for a glowing skincare routine?** ✨\n\nHere's a simple three-step regimen using some of my L’Oréal favorites:\n\n1. **Cleanse** with _L’Oréal Paris Revitalift Cleanser_ to gently remove impurities.\n2. **Treat** with **Revitalift 1.5% Hyaluronic Acid Serum** for deep hydration.\n3. **Moisturize** using **Revitalift Triple Power Anti-Aging Moisturizer** for a smooth, radiant finish.\n\nNeed tips for your specific skin type? Let me know! 🌸\n\n_Belle journée à vous. Parce que vous le valez bien. 💄_`,
-    });
-  }, 1000);
+  // Choose a sample reply based on keywords
+  let reply = sampleReplies.ranges; // Default reply
+
+  const lowerQ = question.toLowerCase();
+  if (
+    lowerQ.includes("skin") ||
+    lowerQ.includes("face") ||
+    lowerQ.includes("cleanse") ||
+    lowerQ.includes("serum")
+  ) {
+    reply = sampleReplies.skincare;
+  } else if (
+    lowerQ.includes("hair") ||
+    lowerQ.includes("shampoo") ||
+    lowerQ.includes("conditioner") ||
+    lowerQ.includes("kerastase")
+  ) {
+    reply = sampleReplies.haircare;
+  } else if (
+    lowerQ.includes("makeup") ||
+    lowerQ.includes("mascara") ||
+    lowerQ.includes("foundation") ||
+    lowerQ.includes("lipstick")
+  ) {
+    reply = sampleReplies.makeup;
+  }
+
+  // Remove the "Chloé is thinking..." message
+  const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
+  if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
+    chatWindow.removeChild(lastMsg);
+  }
+  // Add the sample reply
+  addMessage("ai", reply);
+  conversation.push({ role: "assistant", content: reply });
 
   // Reset input
   userInput.value = "";
