@@ -52,41 +52,43 @@ chatForm.addEventListener("submit", async (e) => {
   // Show loading animation/message
   addMessage("ai", "Chloé is thinking...💭");
 
-  // Choose a sample reply based on keywords
-  let reply = sampleReplies.ranges; // Default reply
-
-  const lowerQ = question.toLowerCase();
-  if (
-    lowerQ.includes("skin") ||
-    lowerQ.includes("face") ||
-    lowerQ.includes("cleanse") ||
-    lowerQ.includes("serum")
-  ) {
-    reply = sampleReplies.skincare;
-  } else if (
-    lowerQ.includes("hair") ||
-    lowerQ.includes("shampoo") ||
-    lowerQ.includes("conditioner") ||
-    lowerQ.includes("kerastase")
-  ) {
-    reply = sampleReplies.haircare;
-  } else if (
-    lowerQ.includes("makeup") ||
-    lowerQ.includes("mascara") ||
-    lowerQ.includes("foundation") ||
-    lowerQ.includes("lipstick")
-  ) {
-    reply = sampleReplies.makeup;
+  try {
+    const response = await fetch("https://ash.raubcc.workers.dev/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: "system",
+            content: `You are Chloé, the elegant and knowledgeable AI beauty advisor for L’Oréal. Your sole task is to answer questions about L’Oréal products, routines, and beauty tips—including those from any L’Oréal brand or sub-brand (such as L’Oréal Paris, Garnier, Maybelline, NYX, Lancôme, Kérastase, La Roche-Posay, and more). Use concise, friendly replies in Markdown:  \n- **Product names** in bold  \n- Lists for multi-step routines  \n- Emojis (e.g. 💄, ✨, 🌸) to add warmth and style\n\nBegin each conversation with a graceful greeting (e.g. “Bonjour! I’m Chloé, your L’Oréal Beauty Advisor. How can I help you today? 💄”) and end with an encouraging sign-off (e.g. “Wishing you a beautiful day! ✨”).\n\nIf a user asks anything not related to L’Oréal or its brands, politely say:  \n> “Sorry, I can only help with L’Oréal products, routines, and beauty tips! 😊”\n\nAlways keep responses concise, helpful, and in line with L’Oréal’s elegant, empowering brand voice.`,
+          },
+          ...conversation,
+        ],
+      }),
+    });
+    const data = await response.json();
+    // Remove the "Chloé is thinking..." message
+    const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
+    if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
+      chatWindow.removeChild(lastMsg);
+    }
+    // Add the AI's reply
+    const aiReply =
+      data.choices?.[0]?.message?.content ||
+      "Sorry, I couldn't get a response. Please try again.";
+    addMessage("ai", aiReply);
+    conversation.push({ role: "assistant", content: aiReply });
+  } catch (err) {
+    // Remove the "Chloé is thinking..." message
+    const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
+    if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
+      chatWindow.removeChild(lastMsg);
+    }
+    addMessage(
+      "ai",
+      "Sorry, there was a problem connecting to Chloé. Please try again later."
+    );
   }
-
-  // Remove the "Chloé is thinking..." message
-  const lastMsg = chatWindow.querySelector(".msg.ai:last-child");
-  if (lastMsg && lastMsg.textContent.includes("Chloé is thinking")) {
-    chatWindow.removeChild(lastMsg);
-  }
-  // Add the sample reply
-  addMessage("ai", reply);
-  conversation.push({ role: "assistant", content: reply });
 
   // Reset input
   userInput.value = "";
