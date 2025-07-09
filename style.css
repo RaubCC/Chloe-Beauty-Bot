@@ -1,3 +1,9 @@
+/*
+  Grouped chat turn (user + AI reply together)
+*/
+.chat-turn {
+  margin-bottom: 1.7rem;
+}
 /* —— basic reset —— */
 /*
   This CSS file styles the L'Oréal Product Advisor chat app.
