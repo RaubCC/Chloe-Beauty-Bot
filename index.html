@@ -36,7 +36,12 @@
       <!------- Chat Area ------->
       <main>
         <section class="chatbox">
-          <div id="chatWindow" class="chat-window">
+          <div
+            id="chatWindow"
+            class="chat-window"
+            aria-live="polite"
+            aria-atomic="false"
+          >
             <!-- messages will be appended here via JS -->
           </div>
 
@@ -49,9 +54,10 @@
               placeholder="Ask me about products or routines…"
               autocomplete="off"
               required
+              aria-label="Type your message"
             />
-            <button type="submit" id="sendBtn">
-              <span class="material-icons">send</span>
+            <button type="submit" id="sendBtn" title="Send message">
+              <span class="material-icons" aria-hidden="true">send</span>
               <span class="visually-hidden">Send</span>
             </button>
           </form>
