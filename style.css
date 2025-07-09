@@ -1,11 +1,19 @@
 /* —— basic reset —— */
+/*
+  This CSS file styles the L'Oréal Product Advisor chat app.
+  Comments are provided to help beginners understand each section.
+*/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* Reset default browser styles for all elements */
 }
 
 /* —— color palette —— */
+/*
+  Define color variables for easy reuse and theme changes.
+*/
 :root {
   --black: #231f20;
   --gold: #c7a662;
@@ -19,78 +27,113 @@ body {
   background: var(--white);
   display: flex;
   justify-content: center;
+  /*
+    Use rem units for better scalability and accessibility.
+    The main content is centered horizontally.
+  */
 }
 
+/*
+  The main wrapper for the page content.
+  Responsive width with a max for large screens.
+*/
 .page-wrapper {
   width: 90%;
   max-width: 900px;
 }
 
 /* header */
+/*
+  Header section with logo and title.
+*/
 .site-header {
   text-align: center;
-  padding-top: 50px;
+  padding-top: 3rem;
   background: var(--black);
   color: var(--gold);
 }
 
+/*
+  Site title uses a special font for branding.
+*/
 .site-title {
   font-family: "Bauer Bodoni", "Times New Roman", serif;
-  font-size: 22px;
+  font-size: 1.4rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 0.6rem;
   color: var(--gold);
 }
 
+/*
+  Logo image styling.
+*/
 .loreal-logo {
-  max-width: 110px;
+  max-width: 7rem;
   height: auto;
   display: block;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 0.6rem auto;
 }
 
 /* chat window */
+/*
+  Chat area spacing.
+*/
 .chatbox {
-  margin: 40px 0;
+  margin: 2.5rem 0;
 }
 
+/*
+  The chat window where messages appear.
+*/
 .chat-window {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 360px;
+  min-height: 22.5rem;
   background: #fff;
   border: none;
   box-shadow: 0 4px 24px rgba(199, 166, 98, 0.06);
-  border-radius: 16px;
-  padding: 20px 0;
+  border-radius: 1rem;
+  padding: 1.25rem 0;
 }
 
 /* messages */
+/*
+  Message bubbles for chat.
+  Uses rem units for padding and margin.
+  Transition for smooth hover/focus effects.
+*/
 .msg {
-  border-radius: 20px 20px 20px 4px;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
   border: none;
   box-shadow: 0 2px 14px rgba(35, 31, 32, 0.1);
-  padding: 18px 24px;
-  margin-bottom: 18px;
+  padding: 1.1rem 1.5rem;
+  margin-bottom: 1.1rem;
   background: #faf8f2; /* Very soft ivory for AI, white for user */
   max-width: 85%;
   font-size: 1.07em;
   line-height: 1.7;
+  transition: box-shadow 0.2s, background 0.2s;
 }
 
+/*
+  User message bubble.
+*/
 .msg.user {
   background: #fff;
-  border: 1.5px solid var(--gold);
+  border: 0.09rem solid var(--gold);
   align-self: flex-end;
   text-align: right;
   margin-left: auto;
   margin-right: 0;
 }
 
+/*
+  AI message bubble.
+*/
 .msg.ai {
   background: #faf8f2;
-  border: 1.5px solid var(--black);
+  border: 0.09rem solid var(--black);
   align-self: flex-start;
   text-align: left;
   margin-right: auto;
@@ -99,49 +142,72 @@ body {
 }
 
 /* avatar */
+/*
+  Avatar icon for messages.
+*/
 .avatar {
   font-size: 1.7em;
   vertical-align: middle;
-  margin-right: 10px;
+  margin-right: 0.6rem;
   position: relative;
-  top: 4px;
+  top: 0.25rem;
 }
 
+/*
+  AI avatar is positioned to the left of the message.
+  Make sure this doesn't overlap text on small screens.
+*/
 .msg.ai .avatar {
   position: absolute;
-  left: -38px;
-  top: 8px;
+  left: -2.4rem;
+  top: 0.5rem;
   font-size: 1.8em;
 }
 
 /* input row */
+/*
+  Chat input row.
+*/
 .chat-form {
   display: flex;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
+/*
+  Input field for user messages.
+  Uses rem units for padding and margin.
+*/
 .chat-form input {
-  border-radius: 32px;
-  border: 1.5px solid var(--gold);
+  border-radius: 2rem;
+  border: 0.09rem solid var(--gold);
   font-size: 1.08rem;
-  padding: 16px 22px;
+  padding: 1rem 1.4rem;
   background: #f7f7f7;
-  margin-right: 10px;
+  margin-right: 0.6rem;
+  transition: border 0.2s, background 0.2s;
 }
 
+/*
+  Show a clear focus style for accessibility.
+*/
 .chat-form input:focus {
-  border: 1.5px solid var(--black);
+  border: 0.09rem solid var(--black);
   background: #fff;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
+/*
+  Send button styling.
+*/
 .chat-form button {
   border-radius: 50%;
   background: linear-gradient(90deg, #c7a662, #fff 100%);
   color: var(--black);
   font-size: 1.6em;
-  width: 50px;
-  height: 50px;
+  width: 3.1rem;
+  height: 3.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,21 +215,33 @@ body {
   transition: background 0.3s;
 }
 
+/*
+  Icon inside the send button.
+*/
 .chat-form button .material-icons {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
+/*
+  Button hover effect for better user feedback.
+*/
 .chat-form button:hover {
   background: linear-gradient(90deg, #c7a662, #e7c888);
   color: var(--black);
 }
 
+/*
+  Button focus style for accessibility.
+*/
 .chat-form button:focus {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
 /* visually hidden */
+/*
+  Utility class for screen reader-only text.
+*/
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -177,25 +255,76 @@ body {
 }
 
 /* footer */
+/*
+  Footer section.
+*/
 .site-footer {
-  margin: 60px 0 40px;
+  margin: 3.75rem 0 2.5rem;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.88rem;
   color: var(--gold);
   background: var(--black);
-  padding: 24px 0 16px 0;
+  padding: 1.5rem 0 1rem 0;
 }
 
+/*
+  Footer navigation links.
+*/
 .site-footer nav {
-  margin-top: 12px;
+  margin-top: 0.75rem;
 }
 
+/*
+  Footer links styling.
+*/
 .site-footer a {
-  margin: 0 8px;
+  margin: 0 0.5rem;
   color: var(--gold);
   text-decoration: none;
 }
 
+/*
+  Footer link hover effect.
+*/
 .site-footer a:hover {
   color: var(--white);
+
+  /*
+  Responsive design: Adjust padding and font size for small screens.
+*/
+  @media (max-width: 600px) {
+    .page-wrapper {
+      width: 98%;
+      padding: 0.5rem;
+    }
+    .site-header {
+      padding-top: 1.5rem;
+    }
+    .site-title {
+      font-size: 1.1rem;
+    }
+    .loreal-logo {
+      max-width: 4.5rem;
+    }
+    .chatbox {
+      margin: 1.2rem 0;
+    }
+    .msg {
+      font-size: 0.98em;
+      padding: 0.7rem 1rem;
+    }
+    .msg.ai .avatar {
+      left: -1.5rem;
+      font-size: 1.2em;
+    }
+    .chat-form input {
+      font-size: 0.98rem;
+      padding: 0.7rem 1rem;
+    }
+    .chat-form button {
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: 1.1em;
+    }
+  }
 }
