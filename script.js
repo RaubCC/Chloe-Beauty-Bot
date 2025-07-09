@@ -81,10 +81,12 @@ chatForm.addEventListener("submit", async (e) => {
   showLoadingSpinner();
 
   try {
+    // Add your API prompt ID to the request body
     const response = await fetch("https://ash.raubcc.workers.dev/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        prompt_id: "pmpt_686b3f4fb54c81959b891a837170580d0443a87d058a141f",
         messages: [
           {
             role: "system",
